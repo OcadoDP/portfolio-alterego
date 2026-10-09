@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="A client-side web application designed to evaluate and rank construction firms by aggregating Earnings Management (EM), Financial Reporting Quality (F" name="description"/>
+  <meta content="#070707" name="theme-color"/>
+  <title>
+   InfraTrust Decision Support Tool &mdash; Dexter Pascual Ocado
+  </title>
+  <link href="img/logo-headerxfooter.png" rel="icon" type="image/png"/>
+  <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/extras.css" rel="stylesheet"/>
+  <script>
+   window.MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]}}
+  </script>
+  <script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-nav">
+   <div class="wrap nav-inner">
+    <a class="brand" href="alterego.html">
+     <span class="brand-mark">
+     </span>
+     <span>
+      DEXTER PASCUAL OCADO
+      <small>
+       Quantitative Analyst &middot; Data
+      </small>
+     </span>
+    </a>
+    <nav class="nav-links">
+     <a href="alterego.html#work">Work</a>
+     <a href="about.html">About</a>
+     <a class="active" href="projects.html">Projects</a>
+     <a href="job-hunt.html">Story</a>
+     <a class="nav-why" href="index.html" aria-label="Why this version?" title="Why this version?"><span class="nav-why-icon" aria-hidden="true">?</span><span class="nav-why-label">Why this version?</span></a>
+     <button aria-label="Open terminal" class="nav-term" data-term="" title="Terminal (press `)">&gt;_</button>
+     <a class="nav-lock" href="restricted.html"><i></i>Restricted</a>
+     <a class="nav-cta" href="Resume - Dexter Pascual Ocado.pdf" rel="noopener" target="_blank">R&eacute;sum&eacute; &nearrow;</a>
+    </nav>
+    <button aria-label="Menu" class="mobile-menu">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+   <section class="case-hero wrap reveal">
+    <div class="label">
+     05 / Data Analytics &amp; Econometric Modeling
+    </div>
+    <h1>
+     InfraTrust Decision Support Tool
+    </h1>
+    <p class="lede">
+     A client-side web application designed to evaluate and rank construction firms by aggregating Earnings Management (EM), Financial Reporting Quality (FRQ), and Financial Capacity (FC) into a holistic Trust Score.
+    </p>
+    <div class="case-meta">
+     <span>
+      Vanilla JavaScript
+     </span>
+     <span>
+      HTML/CSS
+     </span>
+     <span>
+      Chart.js
+     </span>
+     <span>
+      SheetJS
+     </span>
+     <span>
+      Financial Modeling
+     </span>
+     <span>
+      GitHub Pages
+     </span>
+    </div>
+   </section>
+   <section class="wrap reveal" style="padding-bottom:50px">
+    <div class="live-badge" style="margin-bottom:14px">
+     <i>
+     </i>
+     Live demo &middot; fully interactive
+    </div>
+    <div class="browser">
+     <div class="browser-bar">
+      <i>
+      </i>
+      <i>
+      </i>
+      <i>
+      </i>
+      <span class="browser-url">
+       ocadodp.github.io/infratrust-decision-tool/
+      </span>
+     </div>
+     <div class="browser-body">
+      <iframe loading="lazy" src="https://ocadodp.github.io/infratrust-decision-tool/" title="InfraTrust Decision Support Tool live demo">
+      </iframe>
+     </div>
+    </div>
+    <a class="ext-link" href="https://ocadodp.github.io/infratrust-decision-tool/" rel="noopener" target="_blank">
+     Open application in full screen &nearrow;
+    </a>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      Sample Usage
+     </h2>
+     <div>
+      <p>
+       For visitors analyzing financial data, here is a visual walkthrough of the tool's evaluation workflow.
+      </p>
+      <div class="screenshot-grid">
+       <div class="screenshot-card">
+        <img alt="InfraTrust Documentation and Settings" src="img/infra-help.png"/>
+        <p class="caption">
+         Step 1: Access comprehensive built-in documentation to understand the holistic Trust Score and methodology.
+        </p>
+       </div>
+       <div class="screenshot-card">
+        <img alt="InfraTrust Empty Dashboard" src="img/infra-home.png"/>
+        <p class="caption">
+         Step 2: Initialize the dashboard and import bulk financial data via the integrated Excel uploader or manual entry.
+        </p>
+       </div>
+       <div class="screenshot-card wide">
+        <img alt="InfraTrust Populated Leaderboard and Charts" src="img/infra-sample.png" style="max-height: 550px; object-fit: cover; object-position: top; margin: 0 auto;"/>
+        <p class="caption">
+         Step 3: Review the dynamic Firm Leaderboard, customize metric weights, and analyze top-performer profiles via the visual analysis interface.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Challenge
+     </h2>
+     <div>
+      <p>
+       Evaluating the trustworthiness of construction firms traditionally relies on surface-level metrics or highly manual spreadsheet analysis. Stakeholders often struggle to see the complete picture, missing critical nuances like subtle earnings manipulation, poor transparency in financial reporting, or weak corporate governance structures.
+      </p>
+      <p>
+       The client needed an accessible, privacy-first tool that could instantly process raw financial data, perform complex econometric calculations to detect manipulation, and generate an easy-to-understand aggregate ranking&mdash;all without requiring a complex backend database or exposing sensitive financial records to external servers.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Solution
+     </h2>
+     <div>
+      <p>
+       I engineered a fully client-side decision support tool using HTML, CSS, and Vanilla JavaScript. By running all computations directly in the browser, the tool ensures strict data privacy while delivering instant visual insights. The core of the application evaluates firms across three distinct mathematical dimensions:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Earnings Management (EM):
+        </strong>
+        To detect financial manipulation, I implemented the
+        <em>
+         Modified Jones Model
+        </em>
+        mathematically in JavaScript. I wrote a custom matrix inversion function to run Ordinary Least Squares (OLS) regression directly in the browser. This calculates the Non-Discretionary Accruals (NDA), revealing any hidden Discretionary Accruals (manipulation).
+        <div class="math-block">
+         $$NDA = \alpha + \beta_1\left(\frac{1}{A_{t-1}}\right) + \beta_2\left(\frac{\Delta REV - \Delta REC}{A_{t-1}}\right) + \beta_3\left(\frac{PPE}{A_{t-1}}\right)$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Financial Reporting Quality (FRQ):
+        </strong>
+        A composite metric evaluating transparency. This combines automated time-series neutrality ($R^2$ fit predicting future cash flows), standardized Audit Opinions, and dynamic compliance checklists for IFRS 15 and Corporate Governance.
+       </li>
+       <li>
+        <strong>
+         Financial Capacity (FC):
+        </strong>
+        A straightforward measure of solvency based on Net Worth (Total Assets minus Total Liabilities).
+       </li>
+      </ul>
+      <p>
+       To ensure robust usability, I integrated
+       <strong>
+        SheetJS
+       </strong>
+       for bulk Excel uploading and built a dynamic scoring engine supporting multiple ranking methodologies: Standard Rank Sum, Min-Max Normalization (0-1), and Z-Score Standardization for handling outliers. I also programmed a "Benchmark Mode" that gracefully degrades the math to industry-standard coefficients if a user inputs data for only a single firm.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Impact
+     </h2>
+     <div>
+      <p>
+       The resulting application is a highly responsive, standalone evaluation engine. Key impacts include:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Complete Privacy &amp; Portability:
+        </strong>
+        LocalStorage integration and JSON export capabilities allow users to save progress locally without any backend infrastructure.
+       </li>
+       <li>
+        <strong>
+         Data Transparency:
+        </strong>
+        The "Computation Details" tab and integrated "System Debugger" provide line-by-line transparency into every intermediate calculation, building trust in the tool's final rankings.
+       </li>
+       <li>
+        <strong>
+         Visual Clarity:
+        </strong>
+        The integration of Chart.js provides immediate, visual feedback through comparative bar charts and multi-axis radar charts, allowing stakeholders to identify a firm's strengths and weaknesses at a glance.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section class="wrap" style="padding:0 0 40px">
+    <div class="note reveal">
+     <a href="projects.html">
+      &larr; Back to Projects
+     </a>
+    </div>
+   </section>
+   <section class="wrap">
+    <div class="next-proj">
+     <a href="project-signature.html">
+      <small>
+       &larr; Previous
+      </small>
+      <strong>
+       Offline Signature Verification
+      </strong>
+     </a>
+     <a href="project-dbm.html">
+      <small>
+       Next &rarr;
+      </small>
+      <strong>
+       Enterprise HR Data Automation &amp; BI
+      </strong>
+     </a>
+    </div>
+   </section>
+   <section class="contact wrap">
+    <div class="reveal">
+     <div class="kicker">
+      Next
+     </div>
+     <h2>
+      Want the details?
+     </h2>
+     <p>
+      Happy to walk through the architecture, the math, or the trade-offs.
+     </p>
+     <a class="btn primary" href="mailto:ocadodexterp@gmail.com">
+      Start a conversation &nearrow;
+     </a>
+     <a class="btn" href="projects.html">
+      &larr; All projects
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="wrap footer">
+   <span>
+    &copy; 2026 Dexter Pascual Ocado
+   </span>
+   <span class="socials">
+    <a href="https://github.com/OcadoDP" rel="noopener" target="_blank">
+     GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/ocadodexterp" rel="noopener" target="_blank">
+     LinkedIn
+    </a>
+    <a href="mailto:ocadodexterp@gmail.com">
+     Email
+    </a>
+   </span>
+   <span>
+    Quantitative Analyst &middot; Data Professional
+   </span>
+  </footer>
+  <script src="js/site.js">
+  </script>
+ </body>
+</html>

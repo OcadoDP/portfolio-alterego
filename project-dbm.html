@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="A comprehensive suite of custom web applications and interactive Power BI dashboards developed to streamline nationwide reporting workflows and evalua" name="description"/>
+  <meta content="#070707" name="theme-color"/>
+  <title>
+   Enterprise HR Data Automation &amp; Business Intelligence &mdash; Dexter Pascual Ocado
+  </title>
+  <link href="img/logo-headerxfooter.png" rel="icon" type="image/png"/>
+  <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/extras.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="site-nav">
+   <div class="wrap nav-inner">
+    <a class="brand" href="alterego.html">
+     <span class="brand-mark">
+     </span>
+     <span>
+      DEXTER PASCUAL OCADO
+      <small>
+       Quantitative Analyst &middot; Data
+      </small>
+     </span>
+    </a>
+    <nav class="nav-links">
+     <a href="alterego.html#work">Work</a>
+     <a href="about.html">About</a>
+     <a class="active" href="projects.html">Projects</a>
+     <a href="job-hunt.html">Story</a>
+     <a class="nav-why" href="index.html" aria-label="Why this version?" title="Why this version?"><span class="nav-why-icon" aria-hidden="true">?</span><span class="nav-why-label">Why this version?</span></a>
+     <button aria-label="Open terminal" class="nav-term" data-term="" title="Terminal (press `)">&gt;_</button>
+     <a class="nav-lock" href="restricted.html"><i></i>Restricted</a>
+     <a class="nav-cta" href="Resume - Dexter Pascual Ocado.pdf" rel="noopener" target="_blank">R&eacute;sum&eacute; &nearrow;</a>
+    </nav>
+    <button aria-label="Menu" class="mobile-menu">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+   <section class="case-hero wrap reveal">
+    <div class="label">
+     01 / Systems Engineering &amp; Automation
+    </div>
+    <h1>
+     Enterprise HR Data Automation &amp; Business Intelligence
+    </h1>
+    <p class="lede">
+     A comprehensive suite of custom web applications and interactive Power BI dashboards developed to streamline nationwide reporting workflows and evaluate Learning &amp; Development initiatives for the Department of Budget and Management.
+    </p>
+    <div class="case-meta">
+     <span>
+      Vanilla JavaScript
+     </span>
+     <span>
+      ExcelJS &amp; jsPDF
+     </span>
+     <span>
+      Power BI
+     </span>
+     <span>
+      Power Automate
+     </span>
+     <span>
+      Data Engineering
+     </span>
+     <span>
+      Fuzzy String Matching
+     </span>
+    </div>
+   </section>
+   <section class="wrap reveal" style="padding-bottom:40px">
+    <div class="note">
+     <strong>
+      Note on Confidentiality:
+     </strong>
+     Because these tools and dashboards process sensitive government personnel data, the live source code and functional endpoints are strictly internal. The case study below outlines the system architecture and the operational bottlenecks they solved.
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Challenge
+     </h2>
+     <div>
+      <p>
+       The Department of Budget and Management (DBM) relies heavily on accurate personnel data to drive efficient public service delivery. However, the traditional Competency Assessment (CA) workflow was incredibly manual. Handling massive amounts of unstructured, human-inputted data across thousands of employees caused severe operational bottlenecks.
+      </p>
+      <p>
+       HR personnel struggled with inconsistent inputs, missing metadata, and the frequent issue of end-users inadvertently altering the rigid layout of live CA Excel files during the validation phase. Simultaneously, the department needed to evaluate the success of its Batch 2025 Udemy Online Learning Program&mdash;a massive rollout involving 600 learners&mdash;which required synthesizing thousands of survey responses to assess the effectiveness of internal study policies.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Suite of Applications
+     </h2>
+     <div>
+      <p>
+       To eliminate manual encoding entirely, I shifted the paradigm toward proactive system engineering. I developed a full-stack, automated architecture comprising several distinct applications designed to seamlessly hand data off from one stage to the next.
+      </p>
+      <div class="app-grid">
+       <div class="app-card">
+        <div class="app-title">
+         1. CA Results Generator
+        </div>
+        <p class="app-desc">
+         This tool served as the entry point of the pipeline. It automated the monitoring of document completion statuses for over 1,200 employees across various Bureaus, Services, and Offices (B/S/Os).
+        </p>
+        <ul class="app-feature-list">
+         <li>
+          Ingested raw MS Forms responses using the SheetJS library to upload, merge, and parse raw Excel data.
+         </li>
+         <li>
+          Automated statistical computations to calculate weighted averages and identify specific competency gaps.
+         </li>
+         <li>
+          Exported strictly formatted Excel reports for supervisors to validate.
+         </li>
+        </ul>
+       </div>
+       <div class="app-card">
+        <div class="app-title">
+         2. Data Sanitization Engine ("Panglinis")
+        </div>
+        <p class="app-desc">
+         A specialized background utility built to conquer unstructured text and mistyped inputs from the raw surveys and validation files.
+        </p>
+        <ul class="app-feature-list">
+         <li>
+          Engineered with bigram similarity (fuzzy matching) and algorithmic string-matching.
+         </li>
+         <li>
+          Automatically mapped messy, human-inputted text (e.g., inconsistent training course titles) to an official masterlist, ensuring data fidelity.
+         </li>
+        </ul>
+       </div>
+       <div class="app-card">
+        <div class="app-title">
+         3. Interventions Consolidator
+        </div>
+        <p class="app-desc">
+         Post-validation, this application processed bulk folder uploads from the various departments.
+        </p>
+        <ul class="app-feature-list">
+         <li>
+          Dynamically located employee metadata (Name, Position, B/S/O) from hundreds of individual files.
+         </li>
+         <li>
+          Extracted only the rows containing identified competency gaps and their corresponding recommended interventions.
+         </li>
+         <li>
+          Compiled these arrays into a centralized master database.
+         </li>
+        </ul>
+       </div>
+       <div class="app-card">
+        <div class="app-title">
+         4. Individual Development Plan (IDP) Generator
+        </div>
+        <p class="app-desc">
+         The final stage of the automated reporting pipeline, designed to handle bulk document creation and packaging.
+        </p>
+        <ul class="app-feature-list">
+         <li>
+          Utilized
+          <code>
+           jsPDF
+          </code>
+          and
+          <code>
+           ExcelJS
+          </code>
+          to autonomously output pixel-perfect A4 landscape reports, adhering to strict official HR templates.
+         </li>
+         <li>
+          Integrated
+          <code>
+           JSZip
+          </code>
+          and
+          <code>
+           FileSaver.js
+          </code>
+          to dynamically package thousands of generated PDFs and multi-tab Excel workbooks into downloadable ZIP archives while preserving hierarchical directory structures.
+         </li>
+        </ul>
+       </div>
+       <div class="app-card">
+        <div class="app-title">
+         5. Udemy L&amp;D Power BI Dashboard
+        </div>
+        <p class="app-desc">
+         A centralized Business Intelligence dashboard developed to visualize the success and challenges of the online learning rollout.
+        </p>
+        <ul class="app-feature-list">
+         <li>
+          Cleaned and transformed over 12,000 rows of raw Udemy learner data via Power Query.
+         </li>
+         <li>
+          Visualized overall proficiency ratios, critical training gaps, and headquarters distributions.
+         </li>
+         <li>
+          Integrated qualitative analytics to assess the effectiveness of the "Drop Everything and Learn" (DEAL) study policy.
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      System Security &amp; Enterprise Automation
+     </h2>
+     <div>
+      <p>
+       To stop users from breaking templates during the validation phase, I authored advanced TypeScript Office Scripts and Microsoft Power Automate cloud flows. These flows autonomously locked structural columns across 1,200+ live files without requiring human intervention. I also integrated Regular Expressions (Regex) directly into the scripts to scan free-text validation comments and automatically extract priority rankings, significantly reducing manual data entry for the HR team.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Impact
+     </h2>
+     <div>
+      <p>
+       The transition to this automated ecosystem profoundly accelerated operations. The automation scripts bypassed thousands of manual corrections, successfully saving hundreds of man-hours and allowing public servants to redirect their focus toward strategic initiatives rather than data encoding.
+      </p>
+      <p>
+       Furthermore, the Power BI dashboard was directly integrated into a comprehensive 17-page executive narrative report. By translating complex feedback into digestible visual analytics, the tools provided leadership with the data-driven justification needed to pivot toward Micro-Learning and highly contextualized Learning &amp; Development strategies.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="wrap" style="padding:0 0 40px">
+    <div class="note reveal">
+     <a href="projects.html">
+      &larr; Back to Projects
+     </a>
+    </div>
+   </section>
+   <section class="wrap">
+    <div class="next-proj">
+     <a href="project-infratrust.html">
+      <small>
+       &larr; Previous
+      </small>
+      <strong>
+       InfraTrust Decision Support Tool
+      </strong>
+     </a>
+     <a href="project-empower.html">
+      <small>
+       Next &rarr;
+      </small>
+      <strong>
+       Project EmpowerPH
+      </strong>
+     </a>
+    </div>
+   </section>
+   <section class="contact wrap">
+    <div class="reveal">
+     <div class="kicker">
+      Next
+     </div>
+     <h2>
+      Want the details?
+     </h2>
+     <p>
+      Happy to walk through the architecture, the math, or the trade-offs.
+     </p>
+     <a class="btn primary" href="mailto:ocadodexterp@gmail.com">
+      Start a conversation &nearrow;
+     </a>
+     <a class="btn" href="projects.html">
+      &larr; All projects
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="wrap footer">
+   <span>
+    &copy; 2026 Dexter Pascual Ocado
+   </span>
+   <span class="socials">
+    <a href="https://github.com/OcadoDP" rel="noopener" target="_blank">
+     GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/ocadodexterp" rel="noopener" target="_blank">
+     LinkedIn
+    </a>
+    <a href="mailto:ocadodexterp@gmail.com">
+     Email
+    </a>
+   </span>
+   <span>
+    Quantitative Analyst &middot; Data Professional
+   </span>
+  </footer>
+  <script src="js/site.js">
+  </script>
+ </body>
+</html>

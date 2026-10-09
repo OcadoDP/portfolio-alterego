@@ -1,0 +1,3157 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Restricted Section &mdash; Dexter Pascual Ocado
+  </title>
+  <link href="img/gryffindor-crest.png" rel="icon" type="image/png"/>
+  <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/extras.css" rel="stylesheet"/>
+  <style>
+   :root {
+            --maroon: #800000;
+            --maroon-dark: #650000;
+            --maroon-light: rgba(128, 0, 0, .05);
+            --maroon-hover: #a00000;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --bg-color: #ffffff;
+            --bg-soft: #f8f8f9;
+            --bg-grid: #f4f4f5;
+            --border: #e5e7eb;
+            --green: #166534;
+            --green-bg: #dcfce7;
+            --red: #991b1b;
+            --red-bg: #fee2e2;
+            --amber: #92400e;
+            --amber-bg: #fef3c7;
+            --shadow: 0 15px 40px rgba(0, 0, 0, .06);
+            --shadow-hover: 0 20px 45px rgba(128, 0, 0, .10);
+            --transition: all .35s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.access-locked {
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: "Space Grotesk", sans-serif;
+            letter-spacing: -.02em;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .wrap {
+            width: min(1100px, calc(100% - 3rem));
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-soft {
+            background: var(--bg-soft);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: .75rem;
+        }
+
+        .section-heading p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* ============================================================
+           RESTRICTED ACCESS GATE
+           ============================================================ */
+
+        #restricted-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background:
+                radial-gradient(circle at 50% 40%, rgba(128,0,0,.13), transparent 34%),
+                radial-gradient(circle at 15% 85%, rgba(128,0,0,.08), transparent 28%),
+                #0d0d0f;
+            color: #fff;
+            overflow: auto;
+            transition:
+                opacity .8s cubic-bezier(.16,1,.3,1),
+                visibility .8s;
+        }
+
+        #restricted-gate::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .22;
+            background-image:
+                linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+
+        #restricted-gate::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 4px,
+                    rgba(255,255,255,.018) 5px
+                );
+        }
+
+        #restricted-gate.gate-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .gate-card {
+            width: min(620px, 100%);
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,.14);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.07),
+                    rgba(255,255,255,.025)
+                );
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.55),
+                0 0 0 1px rgba(128,0,0,.15);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .gate-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -30%;
+            width: 35%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b30000, transparent);
+            box-shadow: 0 0 18px rgba(179,0,0,.7);
+            animation: gate-scan 4s linear infinite;
+        }
+
+        @keyframes gate-scan {
+            from { left: -35%; }
+            to { left: 105%; }
+        }
+
+        .gate-terminal-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            color: rgba(255,255,255,.52);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .68rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .gate-terminal-status {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            white-space: nowrap;
+        }
+
+        .gate-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #b30000;
+            box-shadow: 0 0 12px rgba(179,0,0,.9);
+            animation: gate-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes gate-pulse {
+            0%,100% { opacity: .55; transform: scale(.9); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+
+        .gate-lock {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(128,0,0,.6);
+            background: rgba(128,0,0,.12);
+            color: #fff;
+            font-size: 1.45rem;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 25px rgba(128,0,0,.08);
+        }
+
+        .gate-kicker {
+            color: #d08b8b;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: .65rem;
+        }
+
+        .gate-title {
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            line-height: .98;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .gate-clearance {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .4rem .65rem;
+            border: 1px solid rgba(255,255,255,.14);
+            color: rgba(255,255,255,.68);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .gate-copy {
+            color: rgba(255,255,255,.68);
+            max-width: 540px;
+            margin-bottom: 1.5rem;
+        }
+
+        .gate-copy strong {
+            color: #fff;
+        }
+
+        .gate-researcher-label {
+            display: block;
+            color: rgba(255,255,255,.45);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: .65rem;
+        }
+
+        .gate-researcher-box {
+            border-left: 2px solid var(--maroon);
+            padding: .8rem 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(128,0,0,.08);
+            color: rgba(255,255,255,.78);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .8rem;
+            letter-spacing: .05em;
+        }
+
+        .gate-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr 1fr;
+            gap: .75rem;
+            margin-bottom: 1rem;
+        }
+
+        .gate-input {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,.14);
+            background: rgba(0,0,0,.25);
+            color: #fff;
+            padding: .9rem 1rem;
+            outline: none;
+            border-radius: 0;
+            transition: var(--transition);
+        }
+
+        .gate-input::placeholder {
+            color: rgba(255,255,255,.3);
+        }
+
+        .gate-input:focus {
+            border-color: rgba(180,70,70,.85);
+            box-shadow: 0 0 0 3px rgba(128,0,0,.16);
+            background: rgba(0,0,0,.34);
+        }
+
+        .gate-verify {
+            width: 100%;
+            border: 1px solid #a33;
+            background: var(--maroon);
+            color: #fff;
+            padding: .95rem 1.2rem;
+            cursor: pointer;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+            letter-spacing: .04em;
+            transition: var(--transition);
+        }
+
+        .gate-verify:hover {
+            background: var(--maroon-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(128,0,0,.3);
+        }
+
+        .gate-verify:active {
+            transform: translateY(0);
+        }
+
+        .gate-hint {
+            margin-top: .85rem;
+            color: rgba(255,255,255,.35);
+            font-size: .76rem;
+            text-align: center;
+        }
+
+        .gate-status {
+            min-height: 24px;
+            margin-top: 1rem;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-align: center;
+        }
+
+        .gate-status.error {
+            color: #ff9a9a;
+        }
+
+        .gate-status.success {
+            color: #86efac;
+        }
+
+        .gate-card.shake {
+            animation: gate-shake .42s ease;
+        }
+
+        @keyframes gate-shake {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(7px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .gate-success {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: rgba(13,13,15,.97);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .5s ease, visibility .5s ease;
+        }
+
+        .gate-card.verified .gate-success {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gate-success-inner {
+            width: 100%;
+            text-align: center;
+        }
+
+        .gate-success-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .gate-success h2 {
+            font-size: clamp(2rem, 7vw, 3.2rem);
+            color: #fff;
+            margin-bottom: .7rem;
+        }
+
+        .gate-success-name {
+            color: #d9b1b1;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+            letter-spacing: .1em;
+            font-size: .85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gate-readout {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 1rem;
+            border: 1px solid rgba(134,239,172,.18);
+            background: rgba(22,101,52,.08);
+            text-align: left;
+            color: rgba(255,255,255,.72);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .75rem;
+            line-height: 1.9;
+        }
+
+        .gate-readout strong {
+            color: #86efac;
+        }
+
+        .gate-readout .welcome {
+            color: #fff;
+            margin-top: .5rem;
+        }
+
+        .gate-footer-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: rgba(255,255,255,.28);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .62rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+
+        .grid-bg {
+            background-color: var(--bg-grid);
+            background-image: radial-gradient(var(--border) 1px, transparent 0);
+            background-size: 40px 40px;
+            padding: 5.5rem 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #lore-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .grid-bg .wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(320px, .7fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .kicker {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--maroon);
+            font-weight: 800;
+            margin-bottom: .75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .kicker::after {
+            content: "";
+            width: 30px;
+            height: 2px;
+            background: var(--maroon);
+        }
+
+        .hero-h1 {
+            font-size: clamp(3rem, 7vw, 5.2rem);
+            font-weight: 800;
+            line-height: .98;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-lead {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            max-width: 760px;
+        }
+
+        .hero-terminal {
+            background: rgba(255, 255, 255, .92);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            background: #0f0f12;
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-weight: 800;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: .35rem;
+        }
+
+        .terminal-dots span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #d1d5db;
+        }
+
+        .terminal-status {
+            color: var(--green);
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+        }
+
+        .terminal-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .55rem 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: .88rem;
+        }
+
+        .terminal-line:last-child {
+            border-bottom: 0;
+        }
+
+        .terminal-label {
+            color: var(--text-muted);
+        }
+
+        .terminal-value {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .clearance-bar {
+            margin-top: 1rem;
+            padding: .8rem;
+            border-radius: 8px;
+            background: var(--maroon-light);
+            color: var(--maroon);
+            font-size: .8rem;
+            font-weight: 700;
+        }
+
+        .clearance-progress {
+            height: 5px;
+            background: rgba(255,255,255,.1);
+            border-radius: 99px;
+            margin-top: .5rem;
+            overflow: hidden;
+        }
+
+        .clearance-progress span {
+            display: block;
+            height: 100%;
+            width: 87%;
+            background: var(--maroon);
+            animation: clearancePulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes clearancePulse {
+            from { width: 73%; }
+            to { width: 94%; }
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: .8rem 1.15rem;
+            border-radius: 7px;
+            border: 1px solid var(--border);
+            background: #111114;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: .9rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: var(--maroon);
+            color: #fff;
+            border-color: var(--maroon);
+        }
+
+        .btn-primary:hover {
+            background: var(--maroon-hover);
+        }
+
+        /* ============================================================
+           CLASSIFIED DOSSIERS
+           ============================================================ */
+
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .dossier {
+            padding: 1.25rem;
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dossier:hover {
+            transform: translateY(-4px);
+            border-color: rgba(128, 0, 0, .25);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dossier-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: .9rem;
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--text-muted);
+            font-weight: 800;
+        }
+
+        .classified {
+            color: var(--maroon);
+        }
+
+        .dossier strong {
+            display: block;
+            margin-bottom: .25rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dossier span {
+            font-size: .85rem;
+            color: var(--text-muted);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        /* Redact Styles */
+        .access-denied-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg) scale(3);
+            color: #dc2626;
+            border: 3px solid #dc2626;
+            padding: 0.25rem 0.5rem;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+            background: rgba(255,255,255,0.9);
+        }
+
+        .dossier.is-redacted .access-denied-stamp {
+            opacity: 0.95;
+            transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+        }
+
+        .dossier.is-redacted strong,
+        .dossier.is-redacted span:not(.classified):not(.dossier-label span) {
+            background: var(--text-dark);
+            color: var(--text-dark) !important;
+            border-radius: 3px;
+            user-select: none;
+        }
+
+        .glitch-anim {
+            animation: glitch-skew 0.2s linear infinite both;
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: translate(0) }
+            20% { transform: translate(-3px, 2px) }
+            40% { transform: translate(-1px, -2px) }
+            60% { transform: translate(3px, 1px) }
+            80% { transform: translate(1px, -1px) }
+            100% { transform: translate(0) }
+        }
+
+        /* ============================================================
+           LORE GRID
+           ============================================================ */
+
+        .lore-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .lore-card {
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2.25rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lore-card.wide {
+            grid-column: 1 / -1;
+        }
+
+        .lore-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .lore-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+            border-color: transparent;
+        }
+
+        .lore-card:hover::before {
+            background: var(--maroon);
+        }
+
+        .lore-icon {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            display: block;
+            width: fit-content;
+            transition: var(--transition);
+        }
+
+        .lore-card:hover .lore-icon {
+            transform: scale(1.08) rotate(-2deg);
+        }
+
+        .lore-title {
+            display: block;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .lore-org {
+            display: block;
+            font-size: .75rem;
+            font-weight: 800;
+            color: var(--maroon);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            margin-bottom: 1.1rem;
+        }
+
+        .lore-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .lore-card ul {
+            padding-left: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .lore-card li {
+            margin-bottom: .7rem;
+        }
+
+        .highlight {
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           DRACARYS
+           ============================================================ */
+
+        .dracarys-hover:hover {
+            color: transparent;
+            text-shadow: 0 0 15px #ff4500, 0 0 30px #ff0000;
+            animation: shake .4s infinite;
+            cursor: crosshair;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0) scale(1.1); }
+            25% { transform: translateX(-3px) scale(1.1); }
+            50% { transform: translateX(3px) scale(1.1); }
+            75% { transform: translateX(-3px) scale(1.1); }
+            100% { transform: translateX(0) scale(1.1); }
+        }
+
+        /* ============================================================
+           INTERACTIVE CONTROLS
+           ============================================================ */
+
+        .interactive-panel {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-soft);
+        }
+
+        .interactive-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
+        }
+
+        .btn-interactive {
+            background: var(--maroon-light);
+            color: var(--maroon);
+            border: 1px solid var(--maroon);
+            padding: .65rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .btn-interactive:hover {
+            background: var(--maroon);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           HIDDEN / REVEALED CONTENT
+           ============================================================ */
+
+        .blur-content {
+            filter: blur(8px);
+            opacity: .45;
+            transition: all .6s ease;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .blur-content.revealed {
+            filter: blur(0);
+            opacity: 1;
+            user-select: auto;
+            pointer-events: auto;
+        }
+
+        /* ============================================================
+           HOUSE SORTING ENGINE
+           ============================================================ */
+
+        .quiz-box {
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .quiz-progress {
+            height: 5px;
+            background: rgba(255,255,255,.1);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-progress span {
+            display: block;
+            height: 100%;
+            width: 20%;
+            background: var(--maroon);
+            transition: width .4s ease;
+        }
+
+        .quiz-question {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: .65rem;
+        }
+
+        .quiz-option {
+            width: 100%;
+            text-align: left;
+            padding: .9rem 1rem;
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: var(--transition);
+            color: var(--text-dark);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--maroon);
+            transform: translateX(4px);
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem .5rem;
+        }
+
+        .quiz-result-icon {
+            font-size: 4rem;
+            margin-bottom: .75rem;
+        }
+
+        .quiz-result h3 {
+            font-size: 2rem;
+            margin-bottom: .4rem;
+        }
+
+        .quiz-result p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           DRAGON SIMULATOR
+           ============================================================ */
+
+        .simulator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .slider-row {
+            margin-bottom: 1.4rem;
+        }
+
+        .slider-row label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: .5rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--maroon);
+        }
+
+        .risk-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 270px;
+            border-radius: 12px;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .risk-score {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 5rem;
+            line-height: 1;
+            font-weight: 800;
+            color: var(--maroon);
+        }
+
+        .risk-label {
+            margin-top: .5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-size: .75rem;
+        }
+
+        .risk-description {
+            color: var(--text-muted);
+            font-size: .85rem;
+            margin-top: .75rem;
+            max-width: 280px;
+        }
+
+        /* ============================================================
+           SNITCH GAME
+           ============================================================ */
+
+        .game-box {
+            position: relative;
+            height: 380px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background:
+                radial-gradient(circle at center, rgba(128,0,0,.035), transparent 45%),
+                #0f0f12;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .game-hud {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .hud-item {
+            background: rgba(255,255,255,.92);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: .45rem .7rem;
+            font-size: .75rem;
+            font-weight: 800;
+        }
+
+        .snitch {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            transition: left .12s ease, top .12s ease;
+            z-index: 4;
+        }
+
+        .snitch:hover {
+            transform: scale(1.2);
+        }
+
+        .game-message {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .game-message h3 {
+            font-size: 1.8rem;
+            margin-bottom: .5rem;
+        }
+
+        .game-message p {
+            color: var(--text-muted);
+            max-width: 450px;
+        }
+
+        /* ============================================================
+           ANOMALY SCANNER
+           ============================================================ */
+
+        .scanner {
+            display: grid;
+            grid-template-columns: 1fr .8fr;
+            gap: 1.5rem;
+        }
+
+        .scanner-console {
+            background: #111827;
+            color: #f9fafb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: monospace;
+            min-height: 300px;
+            box-shadow: var(--shadow);
+        }
+
+        .console-top {
+            color: #9ca3af;
+            font-size: .75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .console-output {
+            line-height: 1.8;
+            font-size: .85rem;
+        }
+
+        .console-cursor {
+            display: inline-block;
+            width: 7px;
+            height: 15px;
+            background: #111114;
+            animation: blink .8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .anomaly-result {
+            background: #111114;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .anomaly-result h3 {
+            margin-bottom: 1rem;
+        }
+
+        .metric {
+            margin-bottom: 1rem;
+        }
+
+        .metric-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: .3rem;
+        }
+
+        .metric-bar {
+            height: 6px;
+            border-radius: 99px;
+            background: rgba(255,255,255,.1);
+            overflow: hidden;
+        }
+
+        .metric-bar span {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: var(--maroon);
+            transition: width 1s cubic-bezier(.16,1,.3,1);
+        }
+
+        /* ============================================================
+           PROPHECY GENERATOR
+           ============================================================ */
+
+        .prophecy-box {
+            text-align: center;
+            background: linear-gradient(135deg, #0f0f12, #141418);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .prophecy {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 700;
+            max-width: 800px;
+            margin: 1.5rem auto;
+            min-height: 70px;
+        }
+
+        .prophecy-meta {
+            color: var(--text-muted);
+            font-size: .8rem;
+        }
+
+        /* ============================================================
+           PEER REVIEW
+           ============================================================ */
+
+        .peer-review {
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .peer-review-result {
+            font-weight: 700;
+            font-size: .9rem;
+            margin-top: 1rem;
+            padding: .7rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* ============================================================
+           FOOTER NOTICE
+           ============================================================ */
+
+        .classified-footer {
+            text-align: center;
+            padding: 4rem 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .classified-stamp {
+            display: inline-block;
+            border: 2px solid var(--maroon);
+            color: var(--maroon);
+            padding: .45rem 1rem;
+            font-size: .75rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            transform: rotate(-2deg);
+            margin-bottom: 1rem;
+        }
+
+        .classified-footer p {
+            color: var(--text-muted);
+            font-size: .8rem;
+        }
+
+        /* ============================================================
+           REVEAL
+           ============================================================ */
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        [data-reveal].is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: .1s;
+        }
+
+        .delay-2 {
+            transition-delay: .2s;
+        }
+
+        .delay-3 {
+            transition-delay: .3s;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+
+        @media (max-width: 900px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .dossier-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .simulator,
+            .scanner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .gate-card {
+                padding: 1.35rem;
+            }
+
+            .gate-terminal-bar {
+                font-size: .58rem;
+            }
+
+            .gate-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .gate-title {
+                font-size: 2.7rem;
+            }
+
+            .gate-footer-meta {
+                flex-direction: column;
+                gap: .35rem;
+            }
+
+            .wrap {
+                width: min(100% - 2rem, 1100px);
+            }
+
+            .grid-bg {
+                padding: 4rem 0;
+            }
+
+            .hero-h1 {
+                font-size: 2.8rem;
+            }
+
+            .lore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lore-card.wide {
+                grid-column: auto;
+            }
+
+            .lore-card {
+                padding: 1.5rem;
+            }
+
+            .dossier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3.5rem 0;
+            }
+
+            .game-box {
+                height: 320px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    
+:root{--maroon:#e0505d;--maroon-dark:#a3141f;--maroon-light:rgba(197,30,45,.12);--maroon-hover:#c51e2d;--text-dark:#f4f1ef;--text-muted:#929097;--bg-color:#070707;--bg-soft:#0d0d0f;--bg-grid:#121214;--border:rgba(255,255,255,.10);--green:#7ee2a8;--green-bg:rgba(61,220,132,.12);--red:#ff7c88;--red-bg:rgba(197,30,45,.15);--amber:#f4c16b;--amber-bg:rgba(244,193,107,.12);--shadow:0 15px 40px rgba(0,0,0,.5);--shadow-hover:0 20px 45px rgba(127,13,24,.35)}
+body{background:#070707;color:#f4f1ef;font-family:Inter,system-ui,sans-serif}
+.wrap{width:min(1240px,calc(100% - 48px))}
+.footer.wrap{padding:23px 0}
+  </style>
+ </head>
+ <body class="page-restricted access-locked">
+  <!-- ============================================================
+     RESTRICTED ACCESS GATE
+     ============================================================ -->
+  <div aria-labelledby="gate-title" aria-modal="true" id="restricted-gate" role="dialog">
+   <div class="gate-card" id="gate-card">
+    <div class="gate-terminal-bar">
+     <span>
+      MINISTRY SECURITY NETWORK // SECURE CHANNEL
+     </span>
+     <span class="gate-terminal-status">
+      <span class="gate-status-dot">
+      </span>
+      SECURITY ACTIVE
+     </span>
+    </div>
+    <div aria-hidden="true" class="gate-lock">
+     🔐
+    </div>
+    <div class="gate-kicker">
+     Authorized Researcher Verification
+    </div>
+    <h1 class="gate-title" id="gate-title">
+     Restricted Section
+    </h1>
+    <div class="gate-clearance">
+     LEVEL 04 CLEARANCE REQUIRED
+    </div>
+    <p class="gate-copy">
+     This archive belongs to the
+     <strong>
+      researcher whose portfolio
+            you are currently viewing
+     </strong>
+     .
+            To proceed, enter
+     <strong>
+      the researcher's full name
+     </strong>
+     below.
+    </p>
+    <span class="gate-researcher-label">
+     Authorized Researcher
+    </span>
+    <div class="gate-researcher-box">
+     THE OWNER OF THIS PORTFOLIO
+    </div>
+    <form autocomplete="off" id="identity-form">
+     <div class="gate-inputs">
+      <input aria-label="Researcher's first name" autocomplete="off" class="gate-input" id="first-name" name="first-name" placeholder="First name" required="" spellcheck="false" type="text"/>
+      <input aria-label="Researcher's middle name" autocomplete="off" class="gate-input" id="middle-name" name="middle-name" placeholder="Middle name" required="" spellcheck="false" type="text"/>
+      <input aria-label="Researcher's last name" autocomplete="off" class="gate-input" id="last-name" name="last-name" placeholder="Last name" required="" spellcheck="false" type="text"/>
+     </div>
+     <button class="gate-verify" type="submit">
+      VERIFY RESEARCHER IDENTITY &rarr;
+     </button>
+     <p class="gate-hint">
+      Hint: Check the portfolio identity. You're already on his website. ;)
+     </p>
+     <div aria-live="polite" class="gate-status" id="gate-status">
+     </div>
+    </form>
+    <div class="gate-footer-meta">
+     <span>
+      ARCHIVE: RSO-004
+     </span>
+     <span>
+      AUTH: NAME MATCH
+     </span>
+     <span>
+      THREAT: MOSTLY HARMLESS
+     </span>
+    </div>
+    <div aria-hidden="true" class="gate-success">
+     <div class="gate-success-inner">
+      <div class="gate-success-icon">
+       &checkmark;
+      </div>
+      <h2>
+       IDENTITY VERIFIED
+      </h2>
+      <div class="gate-success-name">
+       DEXTER PASCUAL OCADO
+      </div>
+      <div class="gate-readout">
+       <div>
+        CLEARANCE LEVEL ........
+        <strong>
+         04
+        </strong>
+       </div>
+       <div>
+        RESEARCHER STATUS ......
+        <strong>
+         AUTHORIZED
+        </strong>
+       </div>
+       <div>
+        ARCHIVE STATUS .........
+        <strong>
+         UNLOCKED
+        </strong>
+       </div>
+       <div class="welcome">
+        &gt; Welcome back, Mr. Ocado.
+        <br/>
+        &gt; Opening restricted materials...
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <header class="site-nav">
+   <div class="wrap nav-inner">
+    <a class="brand" href="alterego.html">
+     <span class="brand-mark">
+     </span>
+     <span>
+      DEXTER PASCUAL OCADO
+      <small>
+       Quantitative Analyst &middot; Data
+      </small>
+     </span>
+    </a>
+    <nav class="nav-links">
+     <a href="alterego.html#work">Work</a>
+     <a href="about.html">About</a>
+     <a href="projects.html">Projects</a>
+     <a href="job-hunt.html">Story</a>
+     <a class="nav-why" href="index.html" aria-label="Why this version?" title="Why this version?"><span class="nav-why-icon" aria-hidden="true">?</span><span class="nav-why-label">Why this version?</span></a>
+     <button aria-label="Open terminal" class="nav-term" data-term="" title="Terminal (press `)">&gt;_</button>
+     <a class="nav-lock active" href="restricted.html"><i></i>Restricted</a>
+     <a class="nav-cta" href="Resume - Dexter Pascual Ocado.pdf" rel="noopener" target="_blank">R&eacute;sum&eacute; &nearrow;</a>
+    </nav>
+    <button aria-label="Menu" class="mobile-menu">
+     ☰
+    </button>
+   </div>
+  </header>
+  <!-- ============================================================
+     HERO
+     ============================================================ -->
+  <section class="grid-bg">
+   <canvas id="lore-canvas">
+   </canvas>
+   <div class="wrap">
+    <div class="hero-layout">
+     <div data-reveal="">
+      <div class="kicker">
+       Level 4 Authorization Required
+      </div>
+      <h1 class="hero-h1">
+       The Restricted Section
+      </h1>
+      <p class="intro-lead">
+       A quantitative breakdown of critical universe lore,
+                    allegiance statistics, questionable theorems, and
+                    datasets that probably should have remained classified.
+      </p>
+      <div class="hero-actions">
+       <a class="btn btn-primary" href="#archive">
+        Enter the Archive &darr;
+       </a>
+       <a class="btn" href="alterego.html">
+        &larr; Return to Portfolio
+       </a>
+      </div>
+     </div>
+     <div class="hero-terminal" data-reveal="">
+      <div class="terminal-bar">
+       <div class="terminal-dots">
+        <span>
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+       </div>
+       <span>
+        RESTRICTED_TERMINAL
+       </span>
+       <span class="terminal-status">
+        ● ONLINE
+       </span>
+      </div>
+      <div class="terminal-body">
+       <div class="terminal-line">
+        <span class="terminal-label">
+         Clearance
+        </span>
+        <span class="terminal-value">
+         LEVEL 4
+        </span>
+       </div>
+       <div class="terminal-line">
+        <span class="terminal-label">
+         Threat Level
+        </span>
+        <span class="terminal-value">
+         Mostly Harmless
+        </span>
+       </div>
+       <div class="terminal-line">
+        <span class="terminal-label">
+         Data Integrity
+        </span>
+        <span class="terminal-value">
+         73.4%
+        </span>
+       </div>
+       <div class="terminal-line">
+        <span class="terminal-label">
+         Dragon Status
+        </span>
+        <span class="terminal-value">
+         Unsupervised
+        </span>
+       </div>
+       <div class="terminal-line">
+        <span class="terminal-label">
+         Peer Review
+        </span>
+        <span class="terminal-value">
+         Pending Since 1998
+        </span>
+       </div>
+       <div class="clearance-bar">
+        AUTHORIZATION CONFIDENCE
+        <div class="clearance-progress">
+         <span>
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     CLASSIFIED DOSSIERS
+     ============================================================ -->
+  <section class="section section-soft" id="archive">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Classified Archive
+     </div>
+     <h2>
+      Files You Were Probably Not Supposed to Open
+     </h2>
+     <p>
+      The following records have been recovered from various
+                suspiciously powerful institutions. Their statistical
+                validity remains under investigation.
+     </p>
+    </div>
+    <div class="dossier-grid">
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 001
+       </span>
+       <span class="classified">
+        CLASSIFIED
+       </span>
+      </div>
+      <strong>
+       Ministry Registry
+      </strong>
+      <span>
+       Magical metrics &amp; risk management.
+      </span>
+     </div>
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 002
+       </span>
+       <span class="classified">
+        CLASSIFIED
+       </span>
+      </div>
+      <strong>
+       Iron Throne Audit
+      </strong>
+      <span>
+       Succession economics &amp; dragon exposure.
+      </span>
+     </div>
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 003
+       </span>
+       <span class="classified">
+        TOP SECRET
+       </span>
+      </div>
+      <strong>
+       Universe Theorems
+      </strong>
+      <span>
+       Models that should probably not exist.
+      </span>
+     </div>
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 004
+       </span>
+       <span class="classified">
+        EYES ONLY
+       </span>
+      </div>
+      <strong>
+       Marauder Protocol
+      </strong>
+      <span>
+       Geospatial surveillance architecture.
+      </span>
+     </div>
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 005
+       </span>
+       <span class="classified">
+        RESTRICTED
+       </span>
+      </div>
+      <strong>
+       Valyrian Algorithms
+      </strong>
+      <span>
+       Data structures forged in dragonfire.
+      </span>
+     </div>
+     <div class="dossier" data-reveal="" onclick="redactDossier(this)">
+      <div class="access-denied-stamp">
+       DENIED
+      </div>
+      <div class="dossier-label">
+       <span>
+        FILE 006
+       </span>
+       <span class="classified">
+        UNKNOWN
+       </span>
+      </div>
+      <strong>
+       Department of Mysteries
+      </strong>
+      <span>
+       We genuinely do not know what this is.
+      </span>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     LORE
+     ============================================================ -->
+  <section class="section">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Recovered Intelligence
+     </div>
+     <h2>
+      Universe Lore, Quantified
+     </h2>
+     <p>
+      Some of the most important geopolitical, magical, and
+                aerodynamic problems of our time&mdash;now expressed through
+                questionable data science.
+     </p>
+    </div>
+    <div class="lore-grid">
+     <!-- MINISTRY -->
+     <div class="lore-card" data-reveal="">
+      <span class="lore-icon">
+       🦁
+      </span>
+      <span class="lore-title">
+       Ministry of Magic Registry
+      </span>
+      <span class="lore-org">
+       Department of Magical Metrics
+      </span>
+      <p>
+       Official classification records for cross-universe
+                    risk management and spell efficiency operations.
+      </p>
+      <ul>
+       <li>
+        <span class="highlight">
+         House Affinity:
+        </span>
+        Gryffindor. Demonstrates a statistically
+                        significant bias toward deploying untested
+                        predictive models to production out of sheer bravery.
+       </li>
+       <li>
+        <span class="highlight">
+         Hardware Specs:
+        </span>
+        The Elder Wand. Grants root access to the fabric
+                        of reality with unparalleled computational throughput.
+       </li>
+       <li>
+        <span class="highlight">
+         Magical Security:
+        </span>
+        Engineered a Two-Stage Offline Signature Verification
+                        system utilizing KNN-Harris Pre-Filtering to
+                        definitively prevent Polyjuice Potion identity fraud.
+       </li>
+      </ul>
+     </div>
+     <!-- THRONE -->
+     <div class="lore-card delay-1" data-reveal="">
+      <span class="lore-icon dracarys-hover" title="Dracarys.">
+       🐉
+      </span>
+      <span class="lore-title">
+       The Iron Throne Audit
+      </span>
+      <span class="lore-org">
+       Small Council Econometrics
+      </span>
+      <p>
+       Macroeconomic stability analysis and aerial supremacy
+                    tracking across the Seven Kingdoms.
+      </p>
+      <ul>
+       <li>
+        <span class="highlight">
+         House Allegiance:
+        </span>
+        House Targaryen. Fire, Blood, and highly
+                        optimized data pipelines.
+       </li>
+       <li>
+        <span class="highlight">
+         Aviation Assets:
+        </span>
+        Balerion the Black Dread. Initially, the tracking
+                        app was built strictly for monitoring his daily
+                        livestock consumption, but was later tweaked to
+                        generate actual scorched-earth casualty results.
+       </li>
+       <li>
+        <span class="highlight">
+         Succession Database:
+        </span>
+        To handle redundant Targaryen naming conventions,
+                        the royal lineage algorithm strictly matches names,
+                        disregarding titles to prevent duplicate inheritance crises.
+       </li>
+      </ul>
+     </div>
+     <!-- THEOREMS -->
+     <div class="lore-card wide delay-2" data-reveal="">
+      <span class="lore-icon">
+       📜
+      </span>
+      <span class="lore-title">
+       Unsolved Universe Theorems
+      </span>
+      <span class="lore-org">
+       The Maester&rsquo;s Citadel &amp; Department of Mysteries
+      </span>
+      <p>
+       Theoretical models currently undergoing rigorous
+                    peer review by fictional entities and automated
+                    testing suites.
+      </p>
+      <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+                    gap: 1.5rem;
+                    margin-top: 1.5rem;
+                ">
+       <div>
+        <strong>
+         Theorem I: The Causal Loop Error
+        </strong>
+        <p style="font-size:.92rem;margin-top:.45rem;">
+         Proving mathematically why Time-Turners
+                            fundamentally break Ordinary Least Squares
+                            regression timelines by introducing recursive
+                            heteroskedasticity.
+        </p>
+       </div>
+       <div>
+        <strong>
+         Theorem II: The Baelish Variance
+        </strong>
+        <p style="font-size:.92rem;margin-top:.45rem;">
+         Evaluating Petyr Baelish's extreme tax evasion
+                            strategies using multivariate analysis to
+                            detect anomalous gold reserves in the Vale.
+        </p>
+       </div>
+       <div>
+        <strong>
+         Theorem III: The Golden Snitch Trajectory
+        </strong>
+        <p style="font-size:.92rem;margin-top:.45rem;">
+         Modeling the exact probability distribution
+                            of a Golden Snitch's flight path using non-linear
+                            Brownian motion and aerodynamic drag variables.
+        </p>
+       </div>
+      </div>
+      <div class="peer-review">
+       <button class="btn-interactive" onclick="triggerPeerReview()">
+        Submit for Peer Review
+       </button>
+       <div class="peer-review-result" id="review-output">
+       </div>
+      </div>
+     </div>
+     <!-- MARAUDER -->
+     <div class="lore-card" data-reveal="">
+      <span class="lore-icon">
+       🗺️
+      </span>
+      <span class="lore-title">
+       The Marauder's Protocol
+      </span>
+      <span class="lore-org">
+       Mischief Management Systems
+      </span>
+      <p>
+       A real-time geospatial surveillance matrix tracking
+                    moving entities across heavily fortified castle grounds.
+      </p>
+      <div class="blur-content" id="marauder-content">
+       <ul>
+        <li>
+         <span class="highlight">
+          Authentication:
+         </span>
+         Handshake requires the exact cryptographic
+                            passphrase to bypass the firewall.
+        </li>
+        <li>
+         <span class="highlight">
+          Surveillance:
+         </span>
+         Real-time WebSocket connection displaying
+                            XYZ coordinates of Professor Snape.
+        </li>
+        <li>
+         <span class="highlight">
+          Session Termination:
+         </span>
+         Memory wiping and cache clearing initialized
+                            to ensure zero data retention.
+        </li>
+       </ul>
+      </div>
+      <button class="btn-interactive" id="marauder-btn" onclick="toggleMarauder()">
+       I solemnly swear that I am up to no good
+      </button>
+     </div>
+     <!-- VALYRIA -->
+     <div class="lore-card delay-1" data-reveal="">
+      <span class="lore-icon">
+       ⚔️
+      </span>
+      <span class="lore-title">
+       Valyrian Steel Algorithms
+      </span>
+      <span class="lore-org">
+       Old Valyria Data Forges
+      </span>
+      <p>
+       Constructing unbreakable, lightweight data structures
+                    using archaic formulas lost to modern developers.
+      </p>
+      <ul>
+       <li>
+        <span class="highlight">
+         Durability:
+        </span>
+        Capable of slicing through bloated CSV files and
+                        infinitely looping White Walker processes without
+                        memory leaks.
+       </li>
+       <li>
+        <span class="highlight">
+         Forging Process:
+        </span>
+        Requires dragonfire, blood magic, and an unnecessarily
+                        complex combination of nested SQL queries to maintain
+                        absolute edge sharpness.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     HOUSE ALLOCATION ENGINE
+     ============================================================ -->
+  <section class="section section-soft" id="sorting">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Classification Engine
+     </div>
+     <h2>
+      Determine Your House
+     </h2>
+     <p>
+      A highly sophisticated machine-learning model with
+                absolutely no peer-reviewed methodology whatsoever.
+     </p>
+    </div>
+    <div class="quiz-box" data-reveal="">
+     <div class="quiz-progress">
+      <span id="quiz-progress">
+      </span>
+     </div>
+     <div class="quiz-question" id="quiz-question">
+      Loading classification protocol...
+     </div>
+     <div class="quiz-options" id="quiz-options">
+     </div>
+     <div class="quiz-result" id="quiz-result">
+      <div class="quiz-result-icon" id="quiz-result-icon">
+      </div>
+      <h3 id="quiz-result-house">
+      </h3>
+      <p id="quiz-result-description">
+      </p>
+      <button class="btn-interactive" onclick="restartQuiz()">
+       Re-run Classification
+      </button>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     DRAGON RISK SIMULATOR
+     ============================================================ -->
+  <section class="section" id="dragon-simulator">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Small Council Analytics
+     </div>
+     <h2>
+      Dragon Flight Risk Simulator
+     </h2>
+     <p>
+      Adjust the operational parameters and calculate the
+                probability that the mission ends with someone screaming.
+     </p>
+    </div>
+    <div class="simulator" data-reveal="">
+     <div>
+      <div class="slider-row">
+       <label>
+        <span>
+         Dragon Mass
+        </span>
+        <span id="mass-value">
+         65%
+        </span>
+       </label>
+       <input id="mass-slider" max="100" min="10" type="range" value="65"/>
+      </div>
+      <div class="slider-row">
+       <label>
+        <span>
+         Wind Volatility
+        </span>
+        <span id="wind-value">
+         40%
+        </span>
+       </label>
+       <input id="wind-slider" max="100" min="0" type="range" value="40"/>
+      </div>
+      <div class="slider-row">
+       <label>
+        <span>
+         Route Complexity
+        </span>
+        <span id="route-value">
+         55%
+        </span>
+       </label>
+       <input id="route-slider" max="100" min="0" type="range" value="55"/>
+      </div>
+      <div class="slider-row">
+       <label>
+        <span>
+         Royal Competence
+        </span>
+        <span id="competence-value">
+         25%
+        </span>
+       </label>
+       <input id="competence-slider" max="100" min="0" type="range" value="25"/>
+      </div>
+     </div>
+     <div class="risk-display">
+      <div class="risk-score" id="risk-score">
+       64
+      </div>
+      <div class="risk-label" id="risk-label">
+       Elevated Risk
+      </div>
+      <p class="risk-description" id="risk-description">
+       Mission is technically possible. Whether it is wise
+                    remains a separate statistical question.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     GOLDEN SNITCH GAME
+     ============================================================ -->
+  <section class="section section-soft" id="snitch-game">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Athletic Analytics
+     </div>
+     <h2>
+      Catch the Golden Snitch
+     </h2>
+     <p>
+      You have 15 seconds. Catch as many as possible.
+                The scoring algorithm is completely unfair.
+     </p>
+    </div>
+    <div class="game-box" data-reveal="" id="game-box">
+     <div class="game-hud">
+      <div class="hud-item">
+       SCORE:
+       <span id="game-score">
+        0
+       </span>
+      </div>
+      <div class="hud-item">
+       TIME:
+       <span id="game-time">
+        15
+       </span>
+       s
+      </div>
+     </div>
+     <div class="game-message" id="game-message">
+      <h3>
+       Ready for deployment?
+      </h3>
+      <p>
+       Click the Snitch as quickly as possible.
+                    Each successful catch relocates it.
+      </p>
+      <button class="btn-interactive" onclick="startSnitchGame()">
+       Begin Hunt
+      </button>
+     </div>
+     <div aria-label="Golden Snitch" class="snitch" id="snitch" onclick="catchSnitch()">
+      🪽
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     ANOMALY SCANNER
+     ============================================================ -->
+  <section class="section" id="anomaly">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Department of Mysteries
+     </div>
+     <h2>
+      Anomaly Detection Console
+     </h2>
+     <p>
+      Scan the multiverse for suspicious statistical activity.
+                There is no guarantee that anything discovered should be investigated.
+     </p>
+    </div>
+    <div class="scanner">
+     <div class="scanner-console" data-reveal="">
+      <div class="console-top">
+       DEPARTMENT_OF_MYSTERIES // ANOMALY_SCANNER v4.2
+      </div>
+      <div class="console-output" id="console-output">
+       &gt; Establishing connection...
+       <br/>
+       &gt; Loading dimensional coordinates...
+       <br/>
+       &gt; Checking temporal consistency...
+       <br/>
+       &gt; Awaiting scan command...
+       <span class="console-cursor">
+       </span>
+      </div>
+      <button class="btn-interactive" onclick="runAnomalyScan()">
+       Run Anomaly Scan
+      </button>
+     </div>
+     <div class="anomaly-result" data-reveal="">
+      <h3>
+       Detected Variables
+      </h3>
+      <div class="metric">
+       <div class="metric-head">
+        <span>
+         Temporal Instability
+        </span>
+        <span id="temporal-number">
+         0%
+        </span>
+       </div>
+       <div class="metric-bar">
+        <span id="temporal-bar">
+        </span>
+       </div>
+      </div>
+      <div class="metric">
+       <div class="metric-head">
+        <span>
+         Dragon Activity
+        </span>
+        <span id="dragon-number">
+         0%
+        </span>
+       </div>
+       <div class="metric-bar">
+        <span id="dragon-bar">
+        </span>
+       </div>
+      </div>
+      <div class="metric">
+       <div class="metric-head">
+        <span>
+         Political Turbulence
+        </span>
+        <span id="political-number">
+         0%
+        </span>
+       </div>
+       <div class="metric-bar">
+        <span id="political-bar">
+        </span>
+       </div>
+      </div>
+      <div class="metric">
+       <div class="metric-head">
+        <span>
+         Statistical Absurdity
+        </span>
+        <span id="absurdity-number">
+         0%
+        </span>
+       </div>
+       <div class="metric-bar">
+        <span id="absurdity-bar">
+        </span>
+       </div>
+      </div>
+      <p id="anomaly-text" style="font-size:.85rem;color:var(--text-muted);margin-top:1.25rem;">
+       No anomaly detected.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     PROPHECY GENERATOR
+     ============================================================ -->
+  <section class="section section-soft" id="prophecy">
+   <div class="wrap">
+    <div class="section-heading" data-reveal="">
+     <div class="kicker">
+      Department of Mysteries
+     </div>
+     <h2>
+      Generate a Statistical Prophecy
+     </h2>
+     <p>
+      Predict the future using a methodology nobody can
+                independently reproduce.
+     </p>
+    </div>
+    <div class="prophecy-box" data-reveal="">
+     <div style="font-size:3rem;">
+      🔮
+     </div>
+     <div class="prophecy" id="prophecy-text">
+      The model has not yet spoken.
+     </div>
+     <div class="prophecy-meta" id="prophecy-meta">
+      Confidence interval: unknowable
+     </div>
+     <button class="btn-interactive" onclick="generateProphecy()">
+      Consult the Model
+     </button>
+    </div>
+   </div>
+  </section>
+  <!-- ============================================================
+     FINAL CLASSIFIED NOTICE
+     ============================================================ -->
+  <section class="classified-footer">
+   <div class="classified-stamp">
+    CLASSIFIED // DO NOT INDEX
+   </div>
+   <p>
+    Access logged automatically.
+        Your curiosity has been recorded for purely statistical purposes.
+   </p>
+   <p style="margin-top:.4rem;">
+    Restricted Section &copy; Dexter Pascual Ocado
+   </p>
+  </section>
+  <footer class="wrap footer">
+   <span>
+    &copy; 2026 Dexter Pascual Ocado
+   </span>
+   <span class="socials">
+    <a href="https://github.com/OcadoDP" rel="noopener" target="_blank">
+     GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/ocadodexterp" rel="noopener" target="_blank">
+     LinkedIn
+    </a>
+    <a href="mailto:ocadodexterp@gmail.com">
+     Email
+    </a>
+   </span>
+   <span>
+    Quantitative Analyst &middot; Data Professional
+   </span>
+  </footer>
+  <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+  <script>
+   /* ============================================================
+       RESTRICTED SECTION DOSSIER REDACTION
+       ============================================================ */
+    function redactDossier(el) {
+        if (el.classList.contains('is-redacted')) return;
+        
+        // Trigger glitch animation
+        el.classList.add('glitch-anim');
+        
+        setTimeout(() => {
+            el.classList.remove('glitch-anim');
+            el.classList.add('is-redacted');
+            
+            // Change top badge to locked
+            const badge = el.querySelector('.classified');
+            if (badge) {
+                badge.innerText = "LOCKED";
+                badge.style.color = "var(--red)";
+            }
+        }, 350);
+    }
+
+    /* ============================================================
+       RESTRICTED SECTION IDENTITY GATE
+       ============================================================ */
+    (function () {
+        const STORAGE_KEY = "restrictedSectionUnlocked";
+        const gate = document.getElementById("restricted-gate");
+        const gateCard = document.getElementById("gate-card");
+        const form = document.getElementById("identity-form");
+        const status = document.getElementById("gate-status");
+
+        const firstInput = document.getElementById("first-name");
+        const middleInput = document.getElementById("middle-name");
+        const lastInput = document.getElementById("last-name");
+
+        const expected = {
+            first: "dexter",
+            middle: "pascual",
+            last: "ocado"
+        };
+
+        function normalize(value) {
+            return value
+                .trim()
+                .replace(/\s+/g, " ")
+                .toLowerCase();
+        }
+
+        function unlock() {
+            sessionStorage.setItem(STORAGE_KEY, "true");
+
+            gateCard.classList.add("verified");
+            document.body.classList.remove("access-locked");
+
+            const successLayer = gateCard.querySelector(".gate-success");
+            if (successLayer) {
+                successLayer.setAttribute("aria-hidden", "false");
+            }
+
+            setTimeout(function () {
+                gate.classList.add("gate-hidden");
+
+                setTimeout(function () {
+                    gate.setAttribute("aria-hidden", "true");
+                }, 850);
+            }, 1500);
+        }
+
+        function reject() {
+            gateCard.classList.remove("shake");
+            void gateCard.offsetWidth;
+            gateCard.classList.add("shake");
+
+            status.textContent =
+                "✕ IDENTITY NOT RECOGNIZED — Nice try. This isn't your Restricted Section.";
+
+            status.className = "gate-status error";
+
+            firstInput.value = "";
+            middleInput.value = "";
+            lastInput.value = "";
+
+            firstInput.focus();
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const first = normalize(firstInput.value);
+            const middle = normalize(middleInput.value);
+            const last = normalize(lastInput.value);
+
+            if (
+                first === expected.first &&
+                middle === expected.middle &&
+                last === expected.last
+            ) {
+                status.textContent = "✓ IDENTITY MATCH CONFIRMED";
+                status.className = "gate-status success";
+                unlock();
+            } else {
+                reject();
+            }
+        });
+
+        [firstInput, middleInput, lastInput].forEach(function (input) {
+            input.addEventListener("input", function () {
+                status.textContent = "";
+                status.className = "gate-status";
+            });
+        });
+
+        if (sessionStorage.getItem(STORAGE_KEY) === "true") {
+            gate.classList.add("gate-hidden");
+            gate.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("access-locked");
+        } else {
+            setTimeout(function () {
+                firstInput.focus();
+            }, 100);
+        }
+    })();
+
+    /* ============================================================
+       MARAUDER PROTOCOL
+       ============================================================ */
+
+    function toggleMarauder() {
+        const content = document.getElementById("marauder-content");
+        const btn = document.getElementById("marauder-btn");
+
+        const revealed = content.classList.toggle("revealed");
+
+        if (revealed) {
+            btn.innerText = "Mischief Managed (Hide Data)";
+            btn.style.background = "#111827";
+            btn.style.color = "#fff";
+            btn.style.borderColor = "#111827";
+        } else {
+            btn.innerText = "I solemnly swear that I am up to no good";
+            btn.style.background = "var(--maroon-light)";
+            btn.style.color = "var(--maroon)";
+            btn.style.borderColor = "var(--maroon)";
+        }
+    }
+
+    /* ============================================================
+       PEER REVIEW
+       ============================================================ */
+
+    function triggerPeerReview() {
+        const responses = [
+            "❌ Rejected: The Citadel claims your math is 'dark magic'.",
+            "✅ Approved: Peer review complete. No obvious flaws detected.",
+            "⚠️ Revisions Required: Please adjust for dragon inflation rates.",
+            "❌ Rejected: Burned to ashes by Balerion before publication.",
+            "✅ Published: Currently trending in the Daily Prophet.",
+            "⚠️ Error 404: Manuscript lost in the Room of Requirement.",
+            "❌ Rejected: Sample size consisted entirely of wizards named Gary.",
+            "✅ Approved: Hermione has apparently checked the methodology."
+        ];
+
+        const output = document.getElementById("review-output");
+        const response = responses[Math.floor(Math.random() * responses.length)];
+
+        output.innerText = "Processing...";
+        output.style.display = "block";
+        output.style.background = "var(--bg-grid)";
+        output.style.color = "var(--text-muted)";
+
+        setTimeout(() => {
+            output.innerText = response;
+
+            if (response.includes("✅")) {
+                output.style.background = "var(--green-bg)";
+                output.style.color = "var(--green)";
+            } else if (response.includes("❌")) {
+                output.style.background = "var(--red-bg)";
+                output.style.color = "var(--red)";
+            } else {
+                output.style.background = "var(--amber-bg)";
+                output.style.color = "var(--amber)";
+            }
+        }, 800);
+    }
+
+    /* ============================================================
+       HOUSE ALLOCATION ENGINE
+       ============================================================ */
+
+    const quizQuestions = [
+        {
+            question: "A production model suddenly fails at 2:00 AM. What do you do?",
+            options: [
+                ["Deploy a hotfix immediately.", "gryffindor"],
+                ["Investigate the root cause first.", "ravenclaw"],
+                ["Wake up the person who built it.", "slytherin"],
+                ["Make sure everyone else is okay first.", "hufflepuff"]
+            ]
+        },
+        {
+            question: "You discover a massive unexplained dataset anomaly.",
+            options: [
+                ["Investigate it because this sounds exciting.", "gryffindor"],
+                ["Run diagnostics and test every hypothesis.", "ravenclaw"],
+                ["Figure out who benefits from the anomaly.", "slytherin"],
+                ["Document it carefully so nobody gets blamed.", "hufflepuff"]
+            ]
+        },
+        {
+            question: "Which magical artifact would you want?",
+            options: [
+                ["The Sword of Gryffindor", "gryffindor"],
+                ["A Time-Turner", "ravenclaw"],
+                ["The Elder Wand", "slytherin"],
+                ["A bottomless supply of Butterbeer", "hufflepuff"]
+            ]
+        },
+        {
+            question: "Your team has an impossible deadline.",
+            options: [
+                ["Challenge accepted.", "gryffindor"],
+                ["Optimize the workflow.", "ravenclaw"],
+                ["Negotiate a better deadline.", "slytherin"],
+                ["Volunteer for the boring tasks.", "hufflepuff"]
+            ]
+        },
+        {
+            question: "Pick your preferred data visualization.",
+            options: [
+                ["A dramatic red dashboard.", "gryffindor"],
+                ["A statistically rigorous scatter plot.", "ravenclaw"],
+                ["A KPI dashboard showing who is winning.", "slytherin"],
+                ["A clean, readable report everyone understands.", "hufflepuff"]
+            ]
+        }
+    ];
+
+    let quizIndex = 0;
+
+    let houseScores = {
+        gryffindor: 0,
+        ravenclaw: 0,
+        slytherin: 0,
+        hufflepuff: 0
+    };
+
+    const houseData = {
+        gryffindor: {
+            icon: "🦁",
+            name: "Gryffindor",
+            description:
+                "Your statistical profile suggests courage, questionable production deployments, and a suspicious willingness to investigate dragons manually."
+        },
+        ravenclaw: {
+            icon: "🦅",
+            name: "Ravenclaw",
+            description:
+                "Your model favors curiosity, analysis, and the belief that every problem can eventually be solved with enough data."
+        },
+        slytherin: {
+            icon: "🐍",
+            name: "Slytherin",
+            description:
+                "Strategic, ambitious, and extremely KPI-aware. You probably already know who is going to win before everyone else does."
+        },
+        hufflepuff: {
+            icon: "🦡",
+            name: "Hufflepuff",
+            description:
+                "Reliable, patient, and suspiciously good at keeping systems running while everyone else argues about architecture."
+        }
+    };
+
+    function loadQuizQuestion() {
+        const question = quizQuestions[quizIndex];
+        document.getElementById("quiz-question").innerText = question.question;
+
+        const options = document.getElementById("quiz-options");
+        options.innerHTML = "";
+
+        question.options.forEach(option => {
+            const button = document.createElement("button");
+            button.className = "quiz-option";
+            button.innerText = option[0];
+            button.onclick = () => answerQuiz(option[1]);
+            options.appendChild(button);
+        });
+
+        const progress = ((quizIndex + 1) / quizQuestions.length) * 100;
+        document.getElementById("quiz-progress").style.width = progress + "%";
+    }
+
+    function answerQuiz(house) {
+        houseScores[house]++;
+        quizIndex++;
+
+        if (quizIndex >= quizQuestions.length) {
+            showQuizResult();
+        } else {
+            loadQuizQuestion();
+        }
+    }
+
+    function showQuizResult() {
+        let winner = "gryffindor";
+
+        Object.keys(houseScores).forEach(house => {
+            if (houseScores[house] > houseScores[winner]) {
+                winner = house;
+            }
+        });
+
+        const result = houseData[winner];
+
+        document.getElementById("quiz-question").style.display = "none";
+        document.getElementById("quiz-options").style.display = "none";
+        document.getElementById("quiz-progress").style.width = "100%";
+        document.getElementById("quiz-result").style.display = "block";
+
+        document.getElementById("quiz-result-icon").innerText = result.icon;
+        document.getElementById("quiz-result-house").innerText = result.name;
+        document.getElementById("quiz-result-description").innerText = result.description;
+    }
+
+    function restartQuiz() {
+        quizIndex = 0;
+        houseScores = {
+            gryffindor: 0,
+            ravenclaw: 0,
+            slytherin: 0,
+            hufflepuff: 0
+        };
+
+        document.getElementById("quiz-question").style.display = "block";
+        document.getElementById("quiz-options").style.display = "grid";
+        document.getElementById("quiz-result").style.display = "none";
+
+        loadQuizQuestion();
+    }
+
+    /* ============================================================
+       DRAGON RISK SIMULATOR
+       ============================================================ */
+
+    const sliders = {
+        mass: document.getElementById("mass-slider"),
+        wind: document.getElementById("wind-slider"),
+        route: document.getElementById("route-slider"),
+        competence: document.getElementById("competence-slider")
+    };
+
+    function updateDragonRisk() {
+        const mass = Number(sliders.mass.value);
+        const wind = Number(sliders.wind.value);
+        const route = Number(sliders.route.value);
+        const competence = Number(sliders.competence.value);
+
+        document.getElementById("mass-value").innerText = mass + "%";
+        document.getElementById("wind-value").innerText = wind + "%";
+        document.getElementById("route-value").innerText = route + "%";
+        document.getElementById("competence-value").innerText = competence + "%";
+
+        let risk =
+            (mass * .25) +
+            (wind * .30) +
+            (route * .25) +
+            ((100 - competence) * .20);
+
+        risk = Math.round(Math.min(100, Math.max(0, risk)));
+
+        const score = document.getElementById("risk-score");
+        const label = document.getElementById("risk-label");
+        const description = document.getElementById("risk-description");
+
+        score.innerText = risk;
+
+        if (risk < 30) {
+            label.innerText = "Low Risk";
+            description.innerText = "Mission conditions are unusually favorable. Something is probably wrong.";
+        } else if (risk < 55) {
+            label.innerText = "Moderate Risk";
+            description.innerText = "Mission is feasible. Keep the dragon away from major infrastructure.";
+        } else if (risk < 75) {
+            label.innerText = "Elevated Risk";
+            description.innerText = "Mission is technically possible. Whether it is wise remains a separate statistical question.";
+        } else {
+            label.innerText = "Catastrophic";
+            description.innerText = "Recommend postponing the mission until literally everyone has calmed down.";
+        }
+    }
+
+    Object.values(sliders).forEach(slider => {
+        slider.addEventListener("input", updateDragonRisk);
+    });
+
+    /* ============================================================
+       GOLDEN SNITCH GAME
+       ============================================================ */
+
+    let gameScore = 0;
+    let gameTime = 15;
+    let gameInterval = null;
+    let gameActive = false;
+
+    function startSnitchGame() {
+        clearInterval(gameInterval);
+
+        gameScore = 0;
+        gameTime = 15;
+        gameActive = true;
+
+        document.getElementById("game-score").innerText = gameScore;
+        document.getElementById("game-time").innerText = gameTime;
+        document.getElementById("game-message").style.display = "none";
+
+        const snitch = document.getElementById("snitch");
+        snitch.style.display = "flex";
+
+        moveSnitch();
+
+        gameInterval = setInterval(() => {
+            gameTime--;
+            document.getElementById("game-time").innerText = gameTime;
+
+            if (gameTime <= 0) {
+                endSnitchGame();
+            }
+        }, 1000);
+    }
+
+    function moveSnitch() {
+        const game = document.getElementById("game-box");
+        const snitch = document.getElementById("snitch");
+
+        const maxX = game.clientWidth - 60;
+        const maxY = game.clientHeight - 70;
+
+        const x = Math.random() * maxX;
+        const y = 55 + Math.random() * Math.max(50, maxY - 55);
+
+        snitch.style.left = x + "px";
+        snitch.style.top = y + "px";
+    }
+
+    function catchSnitch() {
+        if (!gameActive) return;
+
+        gameScore++;
+        document.getElementById("game-score").innerText = gameScore;
+        moveSnitch();
+    }
+
+    function endSnitchGame() {
+        clearInterval(gameInterval);
+        gameActive = false;
+
+        document.getElementById("snitch").style.display = "none";
+        const message = document.getElementById("game-message");
+        message.style.display = "flex";
+
+        let result;
+        if (gameScore >= 15) {
+            result = "Absolutely ridiculous. Professional-level Seeker detected.";
+        } else if (gameScore >= 10) {
+            result = "Outstanding. The Ministry would like to recruit you.";
+        } else if (gameScore >= 5) {
+            result = "Respectable performance. Your broomstick is operational.";
+        } else {
+            result = "The Snitch has filed a formal complaint.";
+        }
+
+        message.innerHTML = `
+            <h3>${gameScore} catches</h3>
+            <p>${result}</p>
+            <button class="btn-interactive" onclick="startSnitchGame()">
+                Try Again
+            </button>
+        `;
+    }
+
+    /* ============================================================
+       ANOMALY SCANNER
+       ============================================================ */
+
+    function runAnomalyScan() {
+        const output = document.getElementById("console-output");
+
+        output.innerHTML =
+            "> Initializing scanner...<br>" +
+            "> Connecting to Department of Mysteries...<br>" +
+            "> Searching dimensional residuals...<br>" +
+            "> Detecting anomalous observations...";
+
+        setTimeout(() => {
+            const temporal = Math.floor(Math.random() * 101);
+            const dragon = Math.floor(Math.random() * 101);
+            const political = Math.floor(Math.random() * 101);
+            const absurdity = Math.floor(Math.random() * 101);
+
+            updateMetric("temporal", temporal);
+            updateMetric("dragon", dragon);
+            updateMetric("political", political);
+            updateMetric("absurdity", absurdity);
+
+            const total = (temporal + dragon + political + absurdity) / 4;
+            let anomaly;
+
+            if (total > 75) {
+                anomaly = "CRITICAL: Reality is demonstrating statistically improbable behavior.";
+            } else if (total > 50) {
+                anomaly = "WARNING: Significant anomalous activity detected.";
+            } else if (total > 25) {
+                anomaly = "NOTICE: Mild dimensional instability detected.";
+            } else {
+                anomaly = "No major anomalies. This result is statistically suspicious.";
+            }
+
+            document.getElementById("anomaly-text").innerText = anomaly;
+
+            output.innerHTML =
+                "> Scan complete.<br>" +
+                "> Anomalies classified.<br>" +
+                "> Results transferred to secure archive.<br>" +
+                "> Recommendation: pretend you never saw this.";
+        }, 900);
+    }
+
+    function updateMetric(name, value) {
+        document.getElementById(name + "-number").innerText = value + "%";
+        document.getElementById(name + "-bar").style.width = value + "%";
+    }
+
+    /* ============================================================
+       PROPHECY GENERATOR
+       ============================================================ */
+
+    function generateProphecy() {
+        const subjects = [
+            "The chosen analyst",
+            "A forgotten dataset",
+            "The next dashboard",
+            "The dragon regression model",
+            "A suspicious CSV file",
+            "The Department of Mysteries",
+            "An undocumented API",
+            "The Golden Snitch"
+        ];
+
+        const actions = [
+            "will reveal",
+            "will destabilize",
+            "will accidentally optimize",
+            "will expose",
+            "will statistically invalidate",
+            "will completely automate",
+            "will quietly outperform"
+        ];
+
+        const outcomes = [
+            "the hidden variance.",
+            "the true source of the anomaly.",
+            "a previously unknown confidence interval.",
+            "the weakest link in the kingdom.",
+            "an unnecessarily complicated workflow.",
+            "the ancient secret of reproducible analysis.",
+            "the terrifying truth behind the missing data."
+        ];
+
+        const subject = subjects[Math.floor(Math.random() * subjects.length)];
+        const action = actions[Math.floor(Math.random() * actions.length)];
+        const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+        const confidence = Math.floor(Math.random() * 40) + 60;
+
+        document.getElementById("prophecy-text").innerText = `${subject} ${action} ${outcome}`;
+        document.getElementById("prophecy-meta").innerText = `Model confidence: ${confidence}% · Methodology: classified · Sample size: questionable`;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const revealElements = document.querySelectorAll("[data-reveal]");
+
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            });
+        }, {
+            threshold: .08,
+            rootMargin: "0px 0px -40px 0px"
+        });
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
+
+        loadQuizQuestion();
+        updateDragonRisk();
+    });
+
+    /* ============================================================
+       BACKGROUND NETWORK
+       ============================================================ */
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const canvas = document.getElementById("lore-canvas");
+
+        if (!canvas) return;
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            return;
+        }
+
+        const ctx = canvas.getContext("2d");
+
+        let width;
+        let height;
+        let points = [];
+
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 200
+        };
+
+        window.addEventListener("mousemove", e => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        window.addEventListener("mouseleave", () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+
+            points = [];
+
+            const count = Math.floor((width * height) / 11000);
+
+            for (let i = 0; i < count; i++) {
+                points.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - .5) * .35,
+                    vy: (Math.random() - .5) * .35,
+                    size: Math.random() * 1.5 + 1,
+                    baseAlpha: Math.random() * .18 + .12
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < points.length; i++) {
+                const p = points[i];
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) {
+                    p.vx *= -1;
+                }
+
+                if (p.y < 0 || p.y > height) {
+                    p.vy *= -1;
+                }
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const dist = Math.hypot(dx, dy);
+
+                    if (dist < mouse.radius && dist > 10) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        p.x += (dx / dist) * force * .5;
+                        p.y += (dy / dist) * force * .5;
+                    }
+                }
+
+                ctx.fillStyle = `rgba(128,0,0,${p.baseAlpha + .12})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    const p2 = points[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+
+                    if (dist < 130) {
+                        let opacity = .16 * (1 - dist / 130);
+
+                        if (mouse.x !== null && mouse.y !== null) {
+                            const midX = (p.x + p2.x) / 2;
+                            const midY = (p.y + p2.y) / 2;
+                            const mouseDist = Math.hypot(mouse.x - midX, mouse.y - midY);
+
+                            if (mouseDist < mouse.radius) {
+                                opacity += .25 * (1 - mouseDist / mouse.radius);
+                            }
+                        }
+
+                        ctx.strokeStyle = `rgba(128,0,0,${opacity})`;
+                        ctx.lineWidth = .7;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener("resize", resize);
+
+        resize();
+        animate();
+    });
+  </script>
+  <script src="js/site.js">
+  </script>
+ </body>
+</html>

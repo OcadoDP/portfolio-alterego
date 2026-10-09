@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="A comprehensive univariate and multivariate time series analysis modeling systemic risk, asymmetric leverage effects, and financial contagion using R." name="description"/>
+  <meta content="#070707" name="theme-color"/>
+  <title>
+   Volatility Dynamics &amp; Interdependence in the Philippine Stock Market &mdash; Dexter Pascual Ocado
+  </title>
+  <link href="img/logo-headerxfooter.png" rel="icon" type="image/png"/>
+  <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/extras.css" rel="stylesheet"/>
+  <script>
+   window.MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]}}
+  </script>
+  <script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-nav">
+   <div class="wrap nav-inner">
+    <a class="brand" href="alterego.html">
+     <span class="brand-mark">
+     </span>
+     <span>
+      DEXTER PASCUAL OCADO
+      <small>
+       Quantitative Analyst &middot; Data
+      </small>
+     </span>
+    </a>
+    <nav class="nav-links">
+     <a href="alterego.html#work">Work</a>
+     <a href="about.html">About</a>
+     <a class="active" href="projects.html">Projects</a>
+     <a href="job-hunt.html">Story</a>
+     <a class="nav-why" href="index.html" aria-label="Why this version?" title="Why this version?"><span class="nav-why-icon" aria-hidden="true">?</span><span class="nav-why-label">Why this version?</span></a>
+     <button aria-label="Open terminal" class="nav-term" data-term="" title="Terminal (press `)">&gt;_</button>
+     <a class="nav-lock" href="restricted.html"><i></i>Restricted</a>
+     <a class="nav-cta" href="Resume - Dexter Pascual Ocado.pdf" rel="noopener" target="_blank">R&eacute;sum&eacute; &nearrow;</a>
+    </nav>
+    <button aria-label="Menu" class="mobile-menu">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+   <section class="case-hero wrap reveal">
+    <div class="label">
+     03 / Quantitative Research &amp; Econometrics
+    </div>
+    <h1>
+     Volatility Dynamics &amp; Interdependence in the Philippine Stock Market
+    </h1>
+    <p class="lede">
+     A comprehensive univariate and multivariate time series analysis modeling systemic risk, asymmetric leverage effects, and financial contagion using R.
+    </p>
+    <div class="case-meta">
+     <span>
+      R Programming
+     </span>
+     <span>
+      Time Series Analysis
+     </span>
+     <span>
+      ARIMA / GARCH
+     </span>
+     <span>
+      VAR Modeling
+     </span>
+     <span>
+      DCC-GARCH
+     </span>
+     <span>
+      Econometrics
+     </span>
+    </div>
+   </section>
+   <section class="wrap" style="padding:0 0 40px">
+    <div class="note reveal">
+     <strong>
+      My Role:
+     </strong>
+     I served as the principal architect of the analytical framework and the primary interpreter of the econometric results. I designed the study's conceptual framework, analyzed the diagnostic test outputs, translated the Vector Autoregression (VAR) impulse responses, and interpreted the asymmetric leverage effects to explain how systemic risk propagates across the Philippine banking sector. The data extraction, statistical modeling, and generation of all high-fidelity plots and matrices were executed entirely in the
+     <strong>
+      R programming environment
+     </strong>
+     .
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Challenge
+     </h2>
+     <div>
+      <p>
+       Classical financial theories often rely on the assumption that market risk&mdash;or variance&mdash;remains constant over time. However, decades of empirical evidence have proven this flawed. Financial time series consistently exhibit "volatility clustering," where calm periods are followed by calm periods, and turbulent periods are followed by violent market swings. This means market risk is highly dynamic, compounding upon itself during economic distress.
+      </p>
+      <p>
+       In the context of the Philippines, the Philippine Stock Exchange Composite Index (PSEi) is heavily weighted toward a few large-cap conglomerates and banking institutions (such as BDO, BPI, and Security Bank). We needed to map how volatility behaves and transmits between these apex stocks and the broader market to accurately assess systemic risk, especially surrounding exogenous shocks like the 2020 pandemic crash.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Analytical Framework
+     </h2>
+     <div>
+      <p>
+       We built a multi-stage, top-down econometric pipeline in R to systematically distill a decade of raw market data (December 2015 &ndash; December 2025) into actionable insights.
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Data Sourcing &amp; Stationarity:
+        </strong>
+        Extracted daily historical closing prices and transformed them into logarithmic returns to stabilize variance. We formally verified stationarity using Augmented Dickey-Fuller (ADF) testing.
+        <div class="math-block">
+         $$r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Univariate Analysis (Conditional Mean &amp; Volatility):
+        </strong>
+        We used ARIMA models to capture short-term linear predictability in the returns. After confirming the presence of ARCH effects, we modeled the conditional variance using asymmetric GARCH extensions (eGARCH, gjrGARCH) with Student's t-distributions to capture fat tails and leverage effects.
+        <div class="math-block">
+         $$\sigma_t^2 = \omega + (\alpha + \gamma I_{\{\epsilon_{t-1}&lt;0\}})\epsilon_{t-1}^2 + \beta\sigma_{t-1}^2$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Multivariate Analysis (Dynamic Interrelationships):
+        </strong>
+        We deployed Vector Autoregression (VAR) to examine directional influence and shock transmission speeds via Granger Causality and Impulse Response Functions (IRF).
+        <div class="math-block">
+         $$Y_t = c + A_1 Y_{t-1} + A_2 Y_{t-2} + \dots + A_p Y_{t-p} + \epsilon_t$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Time-Varying Correlations:
+        </strong>
+        Finally, we used the Dynamic Conditional Correlation (DCC-GARCH) model to capture how the structural relationships between the PSEi and its underlying banks evolve during periods of financial stress.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Findings &amp; Economic Impact
+     </h2>
+     <div>
+      <p>
+       The empirical results entirely debunked the assumption of normal distributions and static risk in the Philippine market, yielding critical insights for portfolio managers and regulatory bodies:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Severe Asymmetric Leverage Effects:
+        </strong>
+        While the broader PSEi reacted symmetrically to news, individual banking stocks demonstrated highly significant, positive leverage effects. This proved that negative macroeconomic shocks trigger a significantly larger surge in volatility and panic selling in individual bank stocks compared to positive news of the exact same magnitude.
+       </li>
+       <li>
+        <strong>
+         Information Hierarchy &amp; Efficiency:
+        </strong>
+        Granger causality revealed that the PSEi, BDO, and Security Bank act as leading indicators, while BPI acts as a lagging receiver. Impulse Response Functions proved that while shocks transmit instantly, the Philippine market is highly efficient, absorbing disruptions and reverting to baseline equilibrium within 2 to 3 trading days.
+       </li>
+       <li>
+        <strong>
+         The Failure of Diversification (Financial Contagion):
+        </strong>
+        The DCC-GARCH model proved that market correlations are not fixed. During the 2020 macroeconomic crisis, correlations that historically hovered between 0.20 and 0.50 violently spiked to above 0.70. This provided stark empirical evidence of financial contagion: during panic-driven phases, equities abandon their independent valuation metrics, lock together, and crash in tandem, rendering standard domestic portfolio diversification entirely ineffective during "black swan" events.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section class="wrap" style="padding:0 0 40px">
+    <div class="note reveal">
+     <a href="projects.html">
+      &larr; Back to Projects
+     </a>
+    </div>
+   </section>
+   <section class="wrap">
+    <div class="next-proj">
+     <a href="project-empower.html">
+      <small>
+       &larr; Previous
+      </small>
+      <strong>
+       Project EmpowerPH
+      </strong>
+     </a>
+     <a href="project-signature.html">
+      <small>
+       Next &rarr;
+      </small>
+      <strong>
+       Offline Signature Verification
+      </strong>
+     </a>
+    </div>
+   </section>
+   <section class="contact wrap">
+    <div class="reveal">
+     <div class="kicker">
+      Next
+     </div>
+     <h2>
+      Want the details?
+     </h2>
+     <p>
+      Happy to walk through the architecture, the math, or the trade-offs.
+     </p>
+     <a class="btn primary" href="mailto:ocadodexterp@gmail.com">
+      Start a conversation &nearrow;
+     </a>
+     <a class="btn" href="projects.html">
+      &larr; All projects
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="wrap footer">
+   <span>
+    &copy; 2026 Dexter Pascual Ocado
+   </span>
+   <span class="socials">
+    <a href="https://github.com/OcadoDP" rel="noopener" target="_blank">
+     GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/ocadodexterp" rel="noopener" target="_blank">
+     LinkedIn
+    </a>
+    <a href="mailto:ocadodexterp@gmail.com">
+     Email
+    </a>
+   </span>
+   <span>
+    Quantitative Analyst &middot; Data Professional
+   </span>
+  </footer>
+  <script src="js/site.js">
+  </script>
+ </body>
+</html>

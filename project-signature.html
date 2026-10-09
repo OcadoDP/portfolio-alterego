@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="A hybrid verification framework integrating a lightweight K-Nearest Neighbors (KNN) pre-filter with a ResNet-18 Siamese network to balance computation" name="description"/>
+  <meta content="#070707" name="theme-color"/>
+  <title>
+   Two-Stage Offline Signature Verification System &mdash; Dexter Pascual Ocado
+  </title>
+  <link href="img/logo-headerxfooter.png" rel="icon" type="image/png"/>
+  <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/extras.css" rel="stylesheet"/>
+  <script>
+   window.MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]]}}
+  </script>
+  <script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+ </head>
+ <body>
+  <header class="site-nav">
+   <div class="wrap nav-inner">
+    <a class="brand" href="alterego.html">
+     <span class="brand-mark">
+     </span>
+     <span>
+      DEXTER PASCUAL OCADO
+      <small>
+       Quantitative Analyst &middot; Data
+      </small>
+     </span>
+    </a>
+    <nav class="nav-links">
+     <a href="alterego.html#work">Work</a>
+     <a href="about.html">About</a>
+     <a class="active" href="projects.html">Projects</a>
+     <a href="job-hunt.html">Story</a>
+     <a class="nav-why" href="index.html" aria-label="Why this version?" title="Why this version?"><span class="nav-why-icon" aria-hidden="true">?</span><span class="nav-why-label">Why this version?</span></a>
+     <button aria-label="Open terminal" class="nav-term" data-term="" title="Terminal (press `)">&gt;_</button>
+     <a class="nav-lock" href="restricted.html"><i></i>Restricted</a>
+     <a class="nav-cta" href="Resume - Dexter Pascual Ocado.pdf" rel="noopener" target="_blank">R&eacute;sum&eacute; &nearrow;</a>
+    </nav>
+    <button aria-label="Menu" class="mobile-menu">
+     ☰
+    </button>
+   </div>
+  </header>
+  <main>
+   <section class="case-hero wrap reveal">
+    <div class="label">
+     04 / Machine Learning &amp; Computer Vision
+    </div>
+    <h1>
+     Two-Stage Offline Signature Verification System
+    </h1>
+    <p class="lede">
+     A hybrid verification framework integrating a lightweight K-Nearest Neighbors (KNN) pre-filter with a ResNet-18 Siamese network to balance computational efficiency with high verification accuracy.
+    </p>
+    <div class="case-meta">
+     <span>
+      PyTorch
+     </span>
+     <span>
+      ResNet-18
+     </span>
+     <span>
+      Flask API
+     </span>
+     <span>
+      React.js
+     </span>
+     <span>
+      Hugging Face Spaces
+     </span>
+     <span>
+      GitHub Pages
+     </span>
+    </div>
+   </section>
+   <section class="wrap reveal" style="padding-bottom:50px">
+    <div class="live-badge" style="margin-bottom:14px">
+     <i>
+     </i>
+     Live demo &middot; fully interactive
+    </div>
+    <div class="browser">
+     <div class="browser-bar">
+      <i>
+      </i>
+      <i>
+      </i>
+      <i>
+      </i>
+      <span class="browser-url">
+       ocadodp.github.io/offline-signature-verification/
+      </span>
+     </div>
+     <div class="browser-body">
+      <iframe loading="lazy" src="https://ocadodp.github.io/offline-signature-verification/" title="Two-Stage Offline Signature Verification System live demo">
+      </iframe>
+     </div>
+    </div>
+    <a class="ext-link" href="https://ocadodp.github.io/offline-signature-verification/" rel="noopener" target="_blank">
+     Open application in full screen &nearrow;
+    </a>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      Sample Usage
+     </h2>
+     <div>
+      <p>
+       For visitors who may not have sample signatures to test the live demo above, here is a visual walkthrough of the tool's verification process from upload to final verdict.
+      </p>
+      <div class="screenshot-grid">
+       <div class="screenshot-card">
+        <img alt="SigVerifyAI Documentation and Overview" src="img/sig-help.png"/>
+        <p class="caption">
+         Step 1: Access the built-in documentation to understand the Two-Stage Hybrid Framework workflow.
+        </p>
+       </div>
+       <div class="screenshot-card">
+        <img alt="SigVerifyAI Empty Dashboard" src="img/sig-home.png"/>
+        <p class="caption">
+         Step 2: Upload genuine reference samples and the unknown suspect signature into the system.
+        </p>
+       </div>
+       <div class="screenshot-card wide">
+        <img alt="SigVerifyAI Verification Results" src="img/sig-sample.png" style="max-height: 550px; object-fit: cover; object-position: top; margin: 0 auto;"/>
+        <p class="caption">
+         Step 3: Review the Stage 1 structural distance evaluation and the Stage 2 deep learning similarity score to determine authenticity.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Challenge
+     </h2>
+     <div>
+      <p>
+       Offline systems need rich spatial representations to compensate for the absence of dynamic cues, which increases the challenge of distinguishing genuine signatures from skilled forgeries. While CNN-Siamese systems can be highly accurate, they are computationally demanding, especially when processing large sets of obvious random forgeries. Furthermore, relying on a single source dataset risks bias, often leading to models that memorize specific scanner artifacts rather than learning intrinsic signature properties.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Solution
+     </h2>
+     <div>
+      <p>
+       The study proposed a sequential pipeline comprising two distinct stages to optimize both accuracy and processing cost.
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Stage 1: KNN-Harris Pre-filtering:
+        </strong>
+        The first stage utilized a lightweight K-Nearest Neighbors (KNN) classifier using Harris Corner-seeded ORB histogram features to rapidly reject clear forgeries. The optimal configuration utilized 13 neighbors and the Canberra distance metric to filter obvious mismatches computationally efficiently.
+        <div class="math-block">
+         $$d(p,q)=\sum_{i=1}^{n}\frac{|p_{i}-q_{i}|}{|p_{i}|+|q_{i}|}$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Stage 2: CNN-Siamese Verification:
+        </strong>
+        Signatures passing the initial filter were forwarded to a Convolutional Neural Network (CNN)-Siamese architecture based on a ResNet-18 backbone. This network was trained with triplet loss to perform fine-grained analysis, explicitly learning embeddings that cluster genuine signatures while separating forged ones.
+        <div class="math-block">
+         $$\mathcal{L}(A,P,N)=max(0,||f(A)-f(P)||^{2}-||f(A)-f(N)||^{2}+\alpha)$$
+        </div>
+       </li>
+       <li>
+        <strong>
+         Robust Training &amp; Deployment:
+        </strong>
+        To ensure generalization against domain shift, the model was trained on a merged dataset comprising CEDAR, GPDS Synthetic, ICDAR, UTSig, and a locally collected dataset of 60 participants. The system was deployed using a decoupled architecture: a React.js frontend hosted on GitHub Pages, and a Flask-based inference engine hosted on Hugging Face Spaces to manage the deep learning memory requirements.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section class="case-section">
+    <div class="wrap case-grid reveal">
+     <h2>
+      The Impact
+     </h2>
+     <div>
+      <p>
+       Following a Coarse-to-Fine optimization schedule evaluating baseline learning rates of 1&times;10⁻⁴ and 5&times;10⁻⁴, we optimized only the learning rate with a scheduler (Cosine Annealing with Warm Restarts), while the batch size was selected statically to maximize GPU capacity. The final model achieved significant biometric authentication benchmarks on the held-out test set:
+      </p>
+      <ul>
+       <li>
+        Recorded a
+        <strong>
+         90.75% Accuracy
+        </strong>
+        against skilled forgeries across diverse ethnic scripts and handwriting styles.
+       </li>
+       <li>
+        Achieved a
+        <strong>
+         9.25% Equal Error Rate (EER)
+        </strong>
+        and a low False Acceptance Rate (FAR) of 8.70%.
+       </li>
+       <li>
+        Secured an
+        <strong>
+         Area Under the Curve (AUC) of 0.9649
+        </strong>
+        , indicating excellent mathematical separation between genuine and forged classes.
+       </li>
+       <li>
+        Successfully demonstrated that a hybrid architecture can harmonize computational efficiency with forensic rigor, offering a viable solution for resource-constrained deployment.
+       </li>
+      </ul>
+     </div>
+    </div>
+   </section>
+   <section class="wrap" style="padding:0 0 40px">
+    <div class="note reveal">
+     <a href="projects.html">
+      &larr; Back to Projects
+     </a>
+    </div>
+   </section>
+   <section class="wrap">
+    <div class="next-proj">
+     <a href="project-volatility.html">
+      <small>
+       &larr; Previous
+      </small>
+      <strong>
+       Volatility Dynamics
+      </strong>
+     </a>
+     <a href="project-infratrust.html">
+      <small>
+       Next &rarr;
+      </small>
+      <strong>
+       InfraTrust Decision Support Tool
+      </strong>
+     </a>
+    </div>
+   </section>
+   <section class="contact wrap">
+    <div class="reveal">
+     <div class="kicker">
+      Next
+     </div>
+     <h2>
+      Want the details?
+     </h2>
+     <p>
+      Happy to walk through the architecture, the math, or the trade-offs.
+     </p>
+     <a class="btn primary" href="mailto:ocadodexterp@gmail.com">
+      Start a conversation &nearrow;
+     </a>
+     <a class="btn" href="projects.html">
+      &larr; All projects
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="wrap footer">
+   <span>
+    &copy; 2026 Dexter Pascual Ocado
+   </span>
+   <span class="socials">
+    <a href="https://github.com/OcadoDP" rel="noopener" target="_blank">
+     GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/ocadodexterp" rel="noopener" target="_blank">
+     LinkedIn
+    </a>
+    <a href="mailto:ocadodexterp@gmail.com">
+     Email
+    </a>
+   </span>
+   <span>
+    Quantitative Analyst &middot; Data Professional
+   </span>
+  </footer>
+  <script src="js/site.js">
+  </script>
+ </body>
+</html>
